@@ -1,17 +1,15 @@
 import random
 import sys
-from PyQt6 import uic
 from PyQt6.QtGui import QPainter, QColor
 from PyQt6.QtWidgets import QMainWindow, QApplication
+from ui_file import Ui_MainWindow
 
 
-class Square1(QMainWindow):
+class Square1(QMainWindow, Ui_MainWindow):
     def __init__(self):
         super().__init__()
-        uic.loadUi('UI.ui', self)
-        self.resize(800, 800)
+        self.setupUi(self)
         self.pushButton.clicked.connect(self.paint)
-        self.color = QColor('yellow')
         self.do_paint = False
 
     def paintEvent(self, event):
@@ -27,7 +25,9 @@ class Square1(QMainWindow):
         self.update()
 
     def draw(self, qp):
-        qp.setBrush(self.color)
+        qp.setBrush(QColor(random.randint(0, 255),
+                           random.randint(0, 255),
+                           random.randint(0, 255)))
         num = random.randint(1, 50)
         qp.drawEllipse(random.randint(30, 350), random.randint(30, 350), 10 * num, 10 * num)
 
